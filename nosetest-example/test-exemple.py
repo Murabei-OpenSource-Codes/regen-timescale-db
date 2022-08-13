@@ -9,7 +9,6 @@ class TestExample(unittest.TestCase):
     """Unittest class that helps building pumpwood based systems test."""
     con_str = "postgresql://murabei:is_very_nice!@localhost/murabei"
 
-
     def test__1(self):
         """Check if database has regen after call."""
         engine = create_engine(self.con_str)

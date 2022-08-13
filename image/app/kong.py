@@ -4,6 +4,15 @@ import requests
 
 def register_reload_db(api_gateway_url: str, service_name: str,
                        service_url: str, reload_route: str):
+    """
+    Register reaload API to Kong.
+
+    Args:
+        api_gateway_url [str]: Host to kong api interface.
+        service_name [str]: Service name.
+        service_url [str]: Service url.
+        reload_route [str]: Route to reload database.
+    """
     # Creating a service for kong gateway.
     template_service = "{api_gateway_url}services/reload-db--{service_name}/"
     temp_service_url = template_service.format(

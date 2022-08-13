@@ -1,4 +1,4 @@
-FROM postgres:12
+FROM timescale/timescaledb-postgis:2.3.0-pg12
 
 ########################
 # ENV DISPOSE_CONECTIONS
@@ -9,44 +9,19 @@ FROM postgres:12
 ########################
 
 ENV FLASK_APP app/app.py
+ENV POSTGRES_EXTRA_ARGS=""
 
 EXPOSE 5432
 EXPOSE 5000
 
-RUN apt-get update
-
-#####################
-# Updating repository
-# Postgres repository
-RUN apt-get install -y wget lsb-release curl
-RUN curl https://www.postgresql.org/media/keys/ACCC4CF8.asc | apt-key add -
-RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
-
-# Timescale repository
-RUN sh -c 'wget --quiet -O - https://packagecloud.io/timescale/timescaledb/gpgkey | apt-key add -'
-RUN sh -c 'echo "deb https://packagecloud.io/timescale/timescaledb/debian/ $(lsb_release -cs) main" > /etc/apt/sources.list.d/timescaledb.list'
-RUN apt-get update
-#####################
-
-################################################
-# Now install appropriate package for PG version
-RUN apt-get install -y timescaledb-postgresql-12
-###############################################
-
-################################################
-# Installing Partman
-RUN apt-get install -y postgresql-12-partman
-################################################
-
-###############################################
-# Install postgis
-RUN apt install -y postgis postgresql-12-postgis-3
-###############################################
+RUN apk update
+RUN apk upgrade --available
+RUN apk add bash
 
 ###############################################
 # Install flask dependencies to backup database
-RUN apt-get install -y g++ python3-dev libffi-dev curl && \
-    apt-get install -y python3 python3-pip
+RUN apk add g++ python3-dev libffi-dev curl
+RUN apk add python3 py3-pip
 RUN pip3 install --upgrade pip setuptools==45
 
 COPY requirements/ /requirements
