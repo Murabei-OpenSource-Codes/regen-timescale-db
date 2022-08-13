@@ -1,4 +1,4 @@
-FROM timescale/timescaledb-postgis:2.3.0-pg12
+FROM timescale/timescaledb-postgis:1.7.5-pg12
 
 ########################
 # ENV DISPOSE_CONECTIONS
