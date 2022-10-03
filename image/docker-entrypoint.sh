@@ -242,7 +242,7 @@ docker_temp_server_start() {
 
 	# internal start of server in order to allow setup using psql client
 	# does not listen on external TCP/IP and waits until start finishes
-	set -- "$@" -c listen_addresses='' -p "${PGPORT:-5432}"
+	set -- "$@" -c listen_addresses='' -c work_mem=50MB -c shared_buffers=1GB -c max_locks_per_transaction=500 -c synchronous_commit=off -c max_wal_size=10GB -c min_wal_size=80MB -p "${PGPORT:-5432}"
 
 	PGUSER="${PGUSER:-$POSTGRES_USER}" \
 	pg_ctl -D "$PGDATA" \
