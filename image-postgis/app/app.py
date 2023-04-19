@@ -52,13 +52,6 @@ def reload_database():
     base_psql = base_psql.format(
         password=password, username=username, database=username)
 
-    # Timescale pre-restore
-    cmd_pre_restore = base_psql + (
-        " -c 'SELECT timescaledb_pre_restore();'")
-    with open(os.devnull, 'w') as fp:
-        pipe = subprocess.Popen(cmd_pre_restore, stdout=fp, shell=True)
-    ret_code = pipe.wait()
-
     # Not Allow conections to database that will be removed
     cmd_noconection_database = base_psql + (
         """ -c "UPDATE pg_database SET datallowconn = 'false' """
@@ -107,13 +100,6 @@ def reload_database():
             database=username)
     with open(os.devnull, 'w') as fp:
         pipe = subprocess.Popen(cmd_create_database, stdout=fp, shell=True)
-    ret_code = pipe.wait()
-
-    # Timescale post-restore
-    cmd_pos_restore = base_psql + (
-        " -c 'SELECT timescaledb_post_restore();'")
-    with open(os.devnull, 'w') as fp:
-        pipe = subprocess.Popen(cmd_pos_restore, stdout=fp, shell=True)
     ret_code = pipe.wait()
 
     # Dispose all conections from other services if needed
