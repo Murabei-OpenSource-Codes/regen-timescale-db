@@ -3,4 +3,4 @@ sqlalchemy==1.4.40
 pandas==1.4.3
 requests==2.28.1
 psycopg2-binary==2.9.3
-ipython-8.4.0
+ipython==8.4.0

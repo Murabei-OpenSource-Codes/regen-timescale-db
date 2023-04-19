@@ -1,4 +1,4 @@
-FROM postgis/postgis:15-3.3
+FROM postgis/postgis:15-3.3-alpine
 
 ########################
 # ENV DISPOSE_CONECTIONS
@@ -14,22 +14,14 @@ ENV POSTGRES_EXTRA_ARGS=""
 EXPOSE 5432
 EXPOSE 5000
 
-RUN apt update
-RUN apt upgrade
-RUN apt install -y bash
+RUN apk update
+RUN apk upgrade --available
+RUN apk add bash su-exec
 
 ###############################################
 # Install flask dependencies to backup database
-RUN apt install -y python3 python3-dev python3-distutils
-RUN apt install -y python3-pip
-
-# Install virtualenv
-RUN wget https://bootstrap.pypa.io/get-pip.py
-RUN python3.8 get-pip.py
-RUN pip3.8 install --upgrade pip
-
-RUN apt install -y g++ python3-dev libffi-dev curl
-RUN apt install -y python3 py3-pip
+RUN apk add g++ python3-dev libffi-dev curl
+RUN apk add python3 py3-pip
 RUN pip3 install --upgrade pip setuptools==45
 
 COPY requirements/ /requirements
