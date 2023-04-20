@@ -22,7 +22,7 @@ RUN apk add bash su-exec
 # Install flask dependencies to backup database
 RUN apk add g++ python3-dev libffi-dev curl
 RUN apk add python3 py3-pip
-RUN pip3 install --upgrade pip setuptools==45
+RUN pip3 install --upgrade pip setuptools==67.7.0
 
 COPY requirements/ /requirements
 RUN pip3 install -r requirements/python_requirements.txt
