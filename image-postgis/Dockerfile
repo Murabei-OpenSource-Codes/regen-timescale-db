@@ -1,4 +1,4 @@
-FROM postgis/postgis:15-3.3-alpine
+FROM postgis/postgis:17-3.5-alpine
 
 ########################
 # ENV DISPOSE_CONECTIONS
@@ -21,8 +21,9 @@ RUN apk add bash su-exec
 ###############################################
 # Install flask dependencies to backup database
 RUN apk add g++ python3-dev libffi-dev curl
-RUN apk add python3 py3-pip
-RUN pip3 install --upgrade pip setuptools==67.7.0
+RUN apk add python3 py3-pip py3-virtualenv
+RUN virtualenv env
+ENV PATH="/env/bin:$PATH"
 
 COPY requirements/ /requirements
 RUN pip3 install -r requirements/python_requirements.txt

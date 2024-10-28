@@ -1,1 +1,1 @@
-export VERSION=postgis-15-3.3-alpine
+export VERSION=postgis-17-3.5-alpine
