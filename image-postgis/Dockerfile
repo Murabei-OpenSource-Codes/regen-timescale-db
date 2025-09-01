@@ -8,7 +8,7 @@ FROM postgis/postgis:17-3.5-alpine
 # ENV DISPOSE_CONECTIONS
 ########################
 
-ENV FLASK_APP app/app.py
+ENV FLASK_APP="app/app.py"
 ENV POSTGRES_EXTRA_ARGS=""
 
 EXPOSE 5432
