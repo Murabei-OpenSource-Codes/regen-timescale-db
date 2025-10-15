@@ -32,19 +32,23 @@ COPY app/ /app
 RUN chmod 777 -R app
 RUN chown postgres:postgres -R app
 
-USER postgres
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
+RUN chown postgres:postgres /usr/local/bin/docker-entrypoint.sh
 
 COPY start_container.bash /start_container.bash
 COPY wait-for-kong.bash /wait-for-kong.bash
 RUN chmod +x ./start_container.bash
 RUN chmod +x ./wait-for-kong.bash
+RUN chown postgres:postgres ./start_container.bash
+RUN chown postgres:postgres ./wait-for-kong.bash
 
 #####################################################
 # Copia os scripts para a criação da base de backup #
 COPY docker-entrypoint-initdb.d/* /docker-entrypoint-initdb.d/
+RUN chown -R postgres:postgres docker-entrypoint-initdb.d/
 #####################################################
 
+USER postgres
 CMD ["./start_container.bash"]
