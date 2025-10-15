@@ -1,1 +1,1 @@
-export VERSION=postgis-17-pgvector-20251015
+export VERSION=postgis-17-pgvector-20251015-beta-1
