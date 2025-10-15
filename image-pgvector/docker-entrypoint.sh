@@ -338,7 +338,7 @@ _main() {
 		set -- postgres "$@"
 	fi
 
-	if [ "$1" = 'postgres' ] && ! _pg_want_help "$@"; then
+	if ([ "$1" = 'postgres' ] || [ "$1" = './start_container.bash' ]) && ! _pg_want_help "$@"; then
 		docker_setup_env
 		# setup data directories and permissions (when run as root)
 		docker_create_db_directories
