@@ -292,7 +292,7 @@ pg_setup_hba_conf() {
 # start socket-only postgresql server for setting up or running scripts
 # all arguments will be passed along as arguments to `postgres` (via pg_ctl)
 docker_temp_server_start() {
-	if [ "$1" = 'postgres' ]; then
+	if [ "$1" = 'postgres' ] || [ "$1" = './start_container.bash' ]; then
 		shift
 	fi
 
