@@ -28,6 +28,7 @@ COPY requirements/ /requirements
 RUN pip3 install -r requirements/python_requirements.txt
 ###############################################
 
+USER postgres
 COPY app/ /app
 RUN chmod 777 -R app
 RUN chown postgres:postgres -R app
