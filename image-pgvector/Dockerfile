@@ -28,11 +28,11 @@ COPY requirements/ /requirements
 RUN pip3 install -r requirements/python_requirements.txt
 ###############################################
 
-USER postgres
 COPY app/ /app
 RUN chmod 777 -R app
 RUN chown postgres:postgres -R app
 
+USER postgres
 COPY docker-entrypoint.sh /usr/local/bin/
 RUN chmod 777 /usr/local/bin/docker-entrypoint.sh
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
